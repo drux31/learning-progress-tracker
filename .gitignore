@@ -1,0 +1,15 @@
+.gradle/
+.idea/
+!build.gradle
+Learning\ Progress\ Tracker\ (Java)/*
+!Learning\ Progress\ Tracker\ (Java)/task/
+Learning\ Progress\ Tracker\ (Java)/task/*
+!Learning\ Progress\ Tracker\ (Java)/task/src/
+!Learning\ Progress\ Tracker\ (Java)/task/test/
+course-info.yaml
+course-remote-info.yaml
+!gradle/
+!gradlew
+gradlew.bat
+!settings.gradle
+Topics
