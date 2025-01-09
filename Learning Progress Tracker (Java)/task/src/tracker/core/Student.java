@@ -1,6 +1,10 @@
 package tracker.core;
 
+import java.util.Random;
+
 public class Student {
+    private final int ID = (new Random()).nextInt(20000);
+    private int studentID;
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -8,12 +12,11 @@ public class Student {
     private final String EMAIL_PATTERN = "[A-Za-z0-9]+(\\.[A-Za-z0-9]+)?@[A-Za-z0-9]+\\.[A-Za-z0-9]+";
 
     public Student() {
-        this.firstName = new String();
-        this.lastName = new String();
-        this.emailAddress = new String();
+        this.studentID = ID;
     }
 
     public Student(String firstName, String lastName, String emailAddress) {
+        this.studentID = ID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -41,6 +44,10 @@ public class Student {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public int getStudentID() {
+        return studentID;
     }
 
     public boolean checkFirstName() {
