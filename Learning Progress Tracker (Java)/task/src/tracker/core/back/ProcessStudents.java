@@ -30,12 +30,23 @@ public class ProcessStudents {
         }
     }
 
-    public Student getStudent(int index) {
-        return this.students.get(index);
+    public Student getStudent(int ID) {
+        Student student = null;
+        for(Student stu: students) {
+            if(stu.getStudentID() == ID) {
+                student = stu;
+                break;
+            }
+        }
+        return student;
     }
 
     public boolean checkEmail(String email) {
         return studentsIDs.containsValue(email);
+    }
+
+    public boolean checkID(int id) {
+        return studentsIDs.containsKey(id);
     }
 
     public boolean checkInput(String input) {

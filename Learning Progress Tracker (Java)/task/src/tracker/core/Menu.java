@@ -14,6 +14,7 @@ public class Menu {
     final String NI = "No input";
     final String EU = "Error: unknown command!";
     final String EP = "Enter 'exit' to exit the program.";
+    final String IPF = "Incorrect points format";
     final String IC = "Incorrect credentials";
     final List<String> commands = List.of("exit", "back", "list", "add students", "add points", "find");
 
@@ -88,7 +89,7 @@ public class Menu {
      * @return - the awaited result of the identified action
      */
     private void processInput(int action) {
-
+        Student stu;
         while(true) {
             input = scanner.nextLine();
             if (checkInput("back")) {
@@ -103,9 +104,29 @@ public class Menu {
                         } else {
                             checkStudent();
                         }
+                        break;
                         //return process.getNbStudents();
                     case 2:
                         // add points
+                        int res = this.addPoints();
+                        if (res == 1) {
+                            System.out.println("Points updated.");
+                        }
+                        break;
+                    case 3:
+                        // find student
+                        stu = process.getStudent(Integer.parseInt(input));
+                        if (stu == null) {
+                            System.out.printf("No student is found for id=%s%n", input);
+                        } else {
+                            System.out.printf("%d points: Java=%d; DSA=%d; Database=%d; Spring=%d%n",
+                                    stu.getStudentID(),
+                                    stu.getStudentsPoints().get("Java"),
+                                    stu.getStudentsPoints().get("DSA"),
+                                    stu.getStudentsPoints().get("Database"),
+                                    stu.getStudentsPoints().get("Spring")
+                            );
+                        }
                         break;
 
                 }
@@ -141,10 +162,12 @@ public class Menu {
                     case "add points":
                         System.out.println("Enter an id and points or 'back' to return:");
                         // add the process for adding points
+                        processInput(2);
                         break;
                     case "find":
                         System.out.println("Enter an id or 'back' to return:");
                         // add the process for find action
+                        processInput(3);
                         break;
                     default:
                         System.out.println(EU);
@@ -155,6 +178,37 @@ public class Menu {
                 break;
         }
         this.scanner.close();
+    }
+
+    private int addPoints() {
+        String [] vars = input.split(" ");
+        if (!process.checkID(Integer.parseInt(vars[0]))) {
+            System.out.printf("No student is found for id=%s%n", vars[0]);
+            return -1;
+        }
+        if (vars.length != 5) {
+            System.out.println(IPF);
+            return -1;
+        }
+        for (int i = 0; i < vars.length; i++) {
+            if (i == 0) {
+                if (!process.checkID(Integer.parseInt(vars[i]))) {
+                    System.out.printf("No student is found for id=%s%n", vars[i]);
+                    return -1;
+                }
+            } else {
+                if (!vars[i].matches("[0-9]+")) {
+                    System.out.println(IPF);
+                    return -1;
+                }
+            }
+        }
+        Student stu = process.getStudent(Integer.parseInt(vars[0]));
+        stu.addPoints("Java", Integer.parseInt(vars[1]));
+        stu.addPoints("DSA", Integer.parseInt(vars[2]));
+        stu.addPoints("Databases", Integer.parseInt(vars[3]));
+        stu.addPoints("Spring", Integer.parseInt(vars[4]));
+        return 1;
     }
 
 }

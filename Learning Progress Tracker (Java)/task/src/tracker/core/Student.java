@@ -1,5 +1,6 @@
 package tracker.core;
 
+import java.util.Hashtable;
 import java.util.Random;
 
 public class Student {
@@ -8,11 +9,13 @@ public class Student {
     private String firstName;
     private String lastName;
     private String emailAddress;
+    private Hashtable<String, Integer> studentsPoints;
     private final String NAME_PATTERN = "^[a-zA-Z]+(-|')?[a-zA-Z]+((-|')?[a-zA-Z]+)*";
     private final String EMAIL_PATTERN = "[A-Za-z0-9]+(\\.[A-Za-z0-9]+)?@[A-Za-z0-9]+\\.[A-Za-z0-9]+";
 
     public Student() {
         this.studentID = ID;
+        this.studentsPoints = new Hashtable<>();
     }
 
     public Student(String firstName, String lastName, String emailAddress) {
@@ -32,6 +35,14 @@ public class Student {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public void addPoints(String course, int points) {
+        this.studentsPoints.put(course, points);
+    }
+
+    public Hashtable<String, Integer> getStudentsPoints() {
+        return studentsPoints;
     }
 
     public String getEmailAddress() {
