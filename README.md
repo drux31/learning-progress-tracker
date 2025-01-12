@@ -46,3 +46,20 @@ The objectives are the followings:
 1. Recognize the new add points and print the following message in response: Enter an id and points or 'back' to return. After that, the program must read learning progress data in the following format: studentId number number number number. The numbers correspond to the courses (Java, DSA, Databases, Spring). Number is a non-negative integer number. If there is no student with the specified ID, the program should print No student is found for id=%s. where %s is the invalid ID. Also, if any of the numbers are missing, or there is an extra number or any of the numbers do not meet the requirements mentioned above, the program should print Incorrect points format. If the learning progress data is entered in the correct format, and the specified user exists, the program should update the student's record and print Points updated. Once back is entered, the program must stop reading learning progress data.
 1. Recognize the find command and print the following message: Enter an id or 'back' to return. After that, if an ID is entered, the program should either print details of the student with the specified ID in this format: id points: Java=%d; DSA=%d; Databases=%d; Spring=%dwhere %d is the respective number of points earned by the student. If the ID cannot be found, print the error message: No student is found for id=%s. where %s is the invalid ID.
 
+#### Stage 4 - Retrieving statistics
+For this stage, we need to add new features to our program: it must provide the statistics about each course and track the performance of each student in each course.
+
+The following must be calculated:
+
+    * Find out which courses are the most and least popular ones. The most popular has the biggest number of enrolled students;
+    * Find out which course has the highest and lowest student activity. Higher student activity means a bigger number of completed tasks;
+    * Establish the easiest and hardest course. The easiest course has the highest average grade per assignment;
+    * Establish top learners for each course.
+
+The objectives of the stage are:
+
+1. Add a new command to your program's toolkit: statistics. If users enter this command, your program should output the header: Type the name of a course to see details or 'back' to quit and six lines with the following information: Most popular, Least popular, Highest activity, Lowest activity, Easiest course, Hardest course with the names of the corresponding courses. After that, if users enter a course name, the program should display the details of this course, but if users enter a name that doesn't correspond to any of the courses, the program should print Unknown course. When the back command is entered, the program goes back to other available commands.
+1. When users enter the statistics command, your program must display the details about any course. When users type in the name of a course, the program should display the name of the course in the first line, then the column headers, and a list of student IDs, their total points in the respective course, and the percent of completion (one decimal place precision). If a course has no students, output only the name of the course and the column headers.
+1.   Course details are available only after users enter statistics, they should not be available with the back. If users type in any course name before entering the statistics command, the program must respond with the Unknown command! message.
+1. Sort student lists by the total number of points in descending order and then by the ID in ascending order.
+

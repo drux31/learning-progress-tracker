@@ -16,7 +16,7 @@ public class Menu {
     final String EP = "Enter 'exit' to exit the program.";
     final String IPF = "Incorrect points format";
     final String IC = "Incorrect credentials";
-    final List<String> commands = List.of("exit", "back", "list", "add students", "add points", "find");
+    final List<String> commands = List.of("exit", "back", "list", "add students", "add points", "find", "statistics");
 
     public Menu() {
         this.scanner = new Scanner(System.in);
@@ -128,9 +128,30 @@ public class Menu {
                             );
                         }
                         break;
+                    case 4:
+                        //calculate statistics
+                        this.printCategories();
 
                 }
             }
+        }
+    }
+
+    private void printCategories() {
+        if (process.getStudentsPoints().isEmpty()) {
+            System.out.println("Most popular: n/a");
+            System.out.println("Least popular: n/a");
+            System.out.println("Highest activity: n/a");
+            System.out.println("Lowest activity: n/a");
+            System.out.println("Easiest course: n/a");
+            System.out.println("Hardest course: n/a");
+        } else {
+            System.out.printf("Most popular: n/a");
+            System.out.printf("Least popular: n/a");
+            System.out.printf("Highest activity: n/a");
+            System.out.printf("Lowest activity: n/a");
+            System.out.printf("Easiest course: n/a");
+            System.out.printf("Hardest course: n/a");
         }
     }
 
@@ -168,6 +189,11 @@ public class Menu {
                         System.out.println("Enter an id or 'back' to return:");
                         // add the process for find action
                         processInput(3);
+                        break;
+                    case "statistics":
+                        System.out.println("Type the name of a course to see details or 'back' to quit:");
+                        // add the process for calculate statistics
+                        processInput(4);
                         break;
                     default:
                         System.out.println(EU);

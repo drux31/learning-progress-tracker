@@ -9,10 +9,12 @@ public class ProcessStudents {
 
     List<Student> students;// = new HashMap<>();
     Hashtable<Integer, String> studentsIDs;
+    Hashtable<Integer, Hashtable<String, Integer>> studentsPoints;
 
     public ProcessStudents() {
         this.students = new ArrayList<>();
         this.studentsIDs = new Hashtable<>();
+        this.studentsPoints = new Hashtable<>();
     }
 
     public void addStudent(Student student) {
@@ -39,6 +41,14 @@ public class ProcessStudents {
             }
         }
         return student;
+    }
+
+    public void addPoints(int studentID, String course, int points) {
+        this.studentsPoints.put(studentID, (Hashtable<String, Integer>) Map.entry(course, points));
+    }
+
+    public Hashtable<Integer, Hashtable<String, Integer>> getStudentsPoints() {
+        return studentsPoints;
     }
 
     public boolean checkEmail(String email) {
