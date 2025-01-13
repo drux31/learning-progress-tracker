@@ -119,6 +119,17 @@ public class Menu {
                         if (stu == null) {
                             System.out.printf("No student is found for id=%s%n", input);
                         } else {
+                            ArrayList<ArrayList<Integer>> points = process.getStudentsPoints()
+                                                                          .get(Integer.parseInt(input));
+                            for (ArrayList<Integer> l: points) {
+                                System.out.printf("%d points: Java=%d; DSA=%d; Database=%d; Spring=%d%n",
+                                        stu.getStudentID(),
+                                        l.get(0),
+                                        l.get(1),
+                                        l.get(2),
+                                        l.get(3));
+                            }
+                            /*
                             System.out.printf("%d points: Java=%d; DSA=%d; Database=%d; Spring=%d%n",
                                     stu.getStudentID(),
                                     stu.getStudentsPoints().get("Java"),
@@ -126,6 +137,7 @@ public class Menu {
                                     stu.getStudentsPoints().get("Database"),
                                     stu.getStudentsPoints().get("Spring")
                             );
+                            */
                         }
                         break;
                     case 4:
@@ -230,6 +242,14 @@ public class Menu {
             }
         }
         Student stu = process.getStudent(Integer.parseInt(vars[0]));
+        ArrayList<Integer> points = new ArrayList<>();
+        points.add(Integer.parseInt(vars[1]));
+        points.add(Integer.parseInt(vars[2]));
+        points.add(Integer.parseInt(vars[3]));
+        points.add(Integer.parseInt(vars[4]));
+        process.addPoints(Integer.parseInt(vars[0]), points);
+
+
         stu.addPoints("Java", Integer.parseInt(vars[1]));
         stu.addPoints("DSA", Integer.parseInt(vars[2]));
         stu.addPoints("Databases", Integer.parseInt(vars[3]));

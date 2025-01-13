@@ -1,5 +1,6 @@
 package tracker.core.back;
 import tracker.core.Student;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -9,12 +10,12 @@ public class ProcessStudents {
 
     List<Student> students;// = new HashMap<>();
     Hashtable<Integer, String> studentsIDs;
-    Hashtable<Integer, Hashtable<String, Integer>> studentsPoints;
+    ProcessCourses processCourses;
 
     public ProcessStudents() {
         this.students = new ArrayList<>();
         this.studentsIDs = new Hashtable<>();
-        this.studentsPoints = new Hashtable<>();
+        this.processCourses = new ProcessCourses();
     }
 
     public void addStudent(Student student) {
@@ -43,12 +44,16 @@ public class ProcessStudents {
         return student;
     }
 
-    public void addPoints(int studentID, String course, int points) {
-        this.studentsPoints.put(studentID, (Hashtable<String, Integer>) Map.entry(course, points));
+    public void addPoints(int studentID, ArrayList<Integer> points) {
+        if (!this.processCourses.checkStudentSub(studentID)) {
+            this.processCourses.setStudentPoints(studentID, points);
+        } else {
+            this.processCourses.addStudentPoints(studentID, points);
+        }
     }
 
-    public Hashtable<Integer, Hashtable<String, Integer>> getStudentsPoints() {
-        return studentsPoints;
+    public Hashtable<Integer, ArrayList<ArrayList<Integer>>> getStudentsPoints() {
+        return processCourses.getStudentPoints();
     }
 
     public boolean checkEmail(String email) {
