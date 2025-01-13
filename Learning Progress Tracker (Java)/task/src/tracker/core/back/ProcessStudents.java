@@ -71,4 +71,28 @@ public class ProcessStudents {
     public int getNbStudents() {
         return this.students.size();
     }
+
+    public ArrayList<String> getMostPopularCourse() {
+        return this.processCourses.mostPopularCourses();
+    }
+
+    public ArrayList<String> getLeastPopularCourse() {
+        return this.processCourses.leastpopularCourses();
+    }
+
+    public ArrayList<String> getHighestCourse() {
+        return this.processCourses.highestCourses();
+    }
+
+    public ArrayList<String> getLowestCourse() {
+        return this.processCourses.lowestCourses();
+    }
+
+    public ArrayList<String> getEasiestCourse() {
+        return this.processCourses.easiestCourses();
+    }
+
+    public ArrayList<String> getHardestCourse() {
+        return this.processCourses.hardestCourses();
+    }
 }

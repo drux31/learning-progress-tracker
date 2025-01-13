@@ -40,7 +40,7 @@ public class ProcessCourses {
         return studentPoints.size();
     }
 
-    public ArrayList<String> mostPopularCourses() {
+    public List<Integer> calculPopularity() {
         /*
         0 = Java
         1 = DSA
@@ -51,16 +51,15 @@ public class ProcessCourses {
         int nbDSA = 0;
         int nbDB = 0;
         int nbSpring = 0;
-        int max;
+
         boolean jv = false;
         boolean dsa = false;
         boolean db = false;
         boolean spr = false;
 
-        ArrayList<String> mostPopular = new ArrayList<>();
-        for (int stuID: this.studentPoints.keySet()) {
+        for (int stuID : this.studentPoints.keySet()) {
             ArrayList<ArrayList<Integer>> pointsList = this.studentPoints.get(stuID);
-            for (ArrayList<Integer> points: pointsList) {
+            for (ArrayList<Integer> points : pointsList) {
 
                 if (points.get(0) > 0) {
                     jv = true;
@@ -76,17 +75,117 @@ public class ProcessCourses {
                 }
             }
             if (jv)
-                nbJava ++;
+                nbJava++;
             if (dsa)
-                nbDSA ++;
+                nbDSA++;
             if (db)
-                nbDB ++;
+                nbDB++;
             if (spr)
                 nbSpring++;
         }
         List<Integer> vals = List.of(nbJava, nbDSA, nbDB, nbSpring);
-        max = Collections.max(vals);
-        int index = 0;
+        return vals;
+    }
+
+    public List<Integer> calculateRatio() {
+        /*
+        0 = Java
+        1 = DSA
+        2 = Databases
+        3 = Spring
+        */
+        int nbJava = 0;
+        int nbDSA = 0;
+        int nbDB = 0;
+        int nbSpring = 0;
+        for (int stuID : this.studentPoints.keySet()) {
+            ArrayList<ArrayList<Integer>> pointsList = this.studentPoints.get(stuID);
+            for (ArrayList<Integer> points : pointsList) {
+
+                if (points.get(0) > 0) {
+                    nbJava ++;
+                }
+                if (points.get(1) > 0) {
+                    nbDSA ++;
+                }
+                if (points.get(2) > 0) {
+                    nbDB ++;
+                }
+                if (points.get(3) > 0) {
+                    nbSpring ++;
+                }
+            }
+        }
+        List<Integer> vals = List.of(nbJava, nbDSA, nbDB, nbSpring);
+        return vals;
+    }
+
+    public List<Integer> calculateDifficulty() {
+        /*
+        0 = Java
+        1 = DSA
+        2 = Databases
+        3 = Spring
+        */
+        int nbJava = 0;
+        int ijava = 0;
+        int avgJava = 0;
+
+        int nbDSA = 0;
+        int idsa = 0;
+        int avgDSA = 0;
+
+        int nbDB = 0;
+        int idb = 0;
+        int avgDB = 0;
+
+        int nbSpring = 0;
+        int ispring = 0;
+        int avgSpring = 0;
+
+        for (int stuID : this.studentPoints.keySet()) {
+            ArrayList<ArrayList<Integer>> pointsList = this.studentPoints.get(stuID);
+            for (ArrayList<Integer> points : pointsList) {
+
+                if (points.get(0) > 0) {
+                    nbJava += points.get(0);
+                    ijava ++;
+                }
+                if (points.get(1) > 0) {
+                    nbDSA += points.get(1);
+                    idsa ++;
+                }
+                if (points.get(2) > 0) {
+                    nbDB += points.get(2);
+                    idb ++;
+                }
+                if (points.get(3) > 0) {
+                    nbSpring += points.get(3);
+                    ispring ++;
+                }
+            }
+        }
+        if (nbJava > 0) {
+            avgJava = nbJava/ijava;
+        }
+        if (nbDSA > 0) {
+            avgDSA = nbDSA/idsa;
+        }
+        if (nbDB > 0) {
+            avgDB = nbDB/idb;
+        }
+        if (nbSpring > 0) {
+            avgSpring = nbSpring/ispring;
+        }
+        List<Integer> vals = List.of(avgJava, avgDSA, avgDB, avgSpring);
+        return vals;
+    }
+
+    ArrayList<String> mostPopularCourses() {
+        ArrayList<String> mostPopular = new ArrayList<>();
+        List<Integer> vals = this.calculPopularity();
+
+        int max = Collections.max(vals);
         for (int i = 0; i < vals.size(); i++) {
             if (vals.get(i) == max) {
                 switch (i) {
@@ -108,53 +207,11 @@ public class ProcessCourses {
         return mostPopular;
     }
 
-    public ArrayList<String> leastopularCourses() {
-        /*
-        0 = Java
-        1 = DSA
-        2 = Databases
-        3 = Spring
-        */
-        int nbJava = 0;
-        int nbDSA = 0;
-        int nbDB = 0;
-        int nbSpring = 0;
-        int min;
-        boolean jv = false;
-        boolean dsa = false;
-        boolean db = false;
-        boolean spr = false;
-
+    public ArrayList<String> leastpopularCourses() {
+        List<Integer> vals = this.calculPopularity();
         ArrayList<String> leastPopular = new ArrayList<>();
-        for (int stuID: this.studentPoints.keySet()) {
-            ArrayList<ArrayList<Integer>> pointsList = this.studentPoints.get(stuID);
-            for (ArrayList<Integer> points: pointsList) {
+        int min = Collections.min(vals);
 
-                if (points.get(0) >= 0) {
-                    jv = true;
-                }
-                if (points.get(1) >= 0) {
-                    dsa = true;
-                }
-                if (points.get(2) >= 0) {
-                    db = true;
-                }
-                if (points.get(3) >= 0) {
-                    spr = true;
-                }
-            }
-            if (jv)
-                nbJava ++;
-            if (dsa)
-                nbDSA ++;
-            if (db)
-                nbDB ++;
-            if (spr)
-                nbSpring++;
-        }
-        List<Integer> vals = List.of(nbJava, nbDSA, nbDB, nbSpring);
-        min = Collections.min(vals);
-        int index = 0;
         for (int i = 0; i < vals.size(); i++) {
             if (vals.get(i) == min) {
                 switch (i) {
@@ -174,5 +231,109 @@ public class ProcessCourses {
             }
         }
         return leastPopular;
+    }
+
+    ArrayList<String> highestCourses() {
+        List<Integer> vals = this.calculateRatio();
+        ArrayList<String> highest = new ArrayList<>();
+        int max = Collections.max(vals);
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i) == max) {
+                switch (i) {
+                    case 0:
+                        highest.add("Java");
+                        break;
+                    case 1:
+                        highest.add("DSA");
+                        break;
+                    case 2:
+                        highest.add("Database");
+                        break;
+                    case 3:
+                        highest.add("Spring");
+                        break;
+                }
+            }
+        }
+        return highest;
+    }
+
+    ArrayList<String> lowestCourses() {
+        List<Integer> vals = this.calculateRatio();
+        ArrayList<String> lowest = new ArrayList<>();
+        int min = Collections.min(vals);
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i) == min) {
+                switch (i) {
+                    case 0:
+                        lowest.add("Java");
+                        break;
+                    case 1:
+                        lowest.add("DSA");
+                        break;
+                    case 2:
+                        lowest.add("Database");
+                        break;
+                    case 3:
+                        lowest.add("Spring");
+                        break;
+                }
+            }
+        }
+        return lowest;
+    }
+
+    ArrayList<String> easiestCourses() {
+        List<Integer> vals = this.calculateRatio();
+        ArrayList<String> easiest = new ArrayList<>();
+        int max = Collections.max(vals);
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i) == max) {
+                switch (i) {
+                    case 0:
+                        easiest.add("Java");
+                        break;
+                    case 1:
+                        easiest.add("DSA");
+                        break;
+                    case 2:
+                        easiest.add("Database");
+                        break;
+                    case 3:
+                        easiest.add("Spring");
+                        break;
+                }
+            }
+        }
+        return easiest;
+    }
+
+    ArrayList<String> hardestCourses() {
+        List<Integer> vals = this.calculateRatio();
+        ArrayList<String> hardest = new ArrayList<>();
+        int min = Collections.min(vals);
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i) == min) {
+                switch (i) {
+                    case 0:
+                        hardest.add("Java");
+                        break;
+                    case 1:
+                        hardest.add("DSA");
+                        break;
+                    case 2:
+                        hardest.add("Database");
+                        break;
+                    case 3:
+                        hardest.add("Spring");
+                        break;
+                }
+            }
+        }
+        return hardest;
     }
 }

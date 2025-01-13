@@ -158,12 +158,12 @@ public class Menu {
             System.out.println("Easiest course: n/a");
             System.out.println("Hardest course: n/a");
         } else {
-            System.out.printf("Most popular: n/a");
-            System.out.printf("Least popular: n/a");
-            System.out.printf("Highest activity: n/a");
-            System.out.printf("Lowest activity: n/a");
-            System.out.printf("Easiest course: n/a");
-            System.out.printf("Hardest course: n/a");
+            System.out.printf("Most popular: %s%n", String.join(", ", process.getMostPopularCourse()));
+            System.out.printf("Least popular: %s%n", String.join(", ", process.getLeastPopularCourse()));
+            System.out.printf("Highest activity: %s%n", String.join(", ", process.getHighestCourse()));
+            System.out.printf("Lowest activity: %s%n", String.join(", ", process.getLowestCourse()));
+            System.out.printf("Easiest course: %s%n", String.join(", ", process.getEasiestCourse()));
+            System.out.printf("Hardest course: %s%n", String.join(", ", process.getHardestCourse()));
         }
     }
 
